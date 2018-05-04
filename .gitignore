@@ -1,0 +1,26 @@
+# intellij IDEA
+
+workspace.xml
+.idea
+.idea/*
+.DS_Store
+target
+target/*
+out
+out/*
+*.iml
+*.log
+
+# Windows
+
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Python:
+*.py[cod]
+*.so
+*.egg
+*.egg-info
+dist
+build
