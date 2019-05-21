@@ -38,7 +38,6 @@ public class FLDispatcherServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-//        resp.getWriter().write("this is a hello world");
         try {
             doDispatch(req, resp);
         } catch (InstantiationException e) {
@@ -59,9 +58,12 @@ public class FLDispatcherServlet extends HttpServlet {
     }
 
     private void initStrategies(FLWebApplicationContext context) {
-        initHandlerMappings(context);//通过HandlerMapping，将请求映射到处理器
-        initHandlerAdapters(context);//通过HandlerAdapter进行多类型的参数动态匹配
-        initViewResolvers(context);//通过viewResolver解析逻辑视图到具体视图实现
+        //通过HandlerMapping，将请求映射到处理器
+        initHandlerMappings(context);
+        //通过HandlerAdapter进行多类型的参数动态匹配
+        initHandlerAdapters(context);
+        //通过viewResolver解析逻辑视图到具体视图实现
+        initViewResolvers(context);
     }
 
     private void initHandlerMappings(FLWebApplicationContext context) {
@@ -79,7 +81,7 @@ public class FLDispatcherServlet extends HttpServlet {
                 strBaseUrl = classRM.value().trim();
             }
 
-            //Controller扫描之后,接着扫描其Method
+            // Controller扫描之后,接着扫描其Method
             Method[] methods = clazz.getMethods();
             for (Method method : methods) {
                 if (!method.isAnnotationPresent(FLRequestMapping.class)) {
@@ -100,11 +102,11 @@ public class FLDispatcherServlet extends HttpServlet {
     private void initHandlerAdapters(FLWebApplicationContext context) {
         for (FLHandlerMapping handlerMapping : this.handlerMappings) {
             Method method = handlerMapping.getMethod();
-            Map<String, Integer> methodParamMapping = new HashMap<>();
+            Map<String, Integer> methodParamMapping = new HashMap<>(10);
 
             Annotation[][] paras = method.getParameterAnnotations();
 
-            //先处理命名参数
+            // 先处理命名参数
             for (int i = 0; i < paras.length; i++) {
                 for (Annotation a : paras[i]) {
                     if (a instanceof FLRequestParam) {
@@ -115,11 +117,11 @@ public class FLDispatcherServlet extends HttpServlet {
                 }
             }
 
-            //再处理request, response参数
+            // 再处理request, response参数
             Class<?>[] parameterTypes = method.getParameterTypes();
             for (int i = 0; i < parameterTypes.length; i++) {
                 if (parameterTypes[i] == HttpServletRequest.class || parameterTypes[i] == HttpServletResponse.class) {
-                    //记录下method形参中request,response两种参数的位置
+                    // 记录下method形参中request,response两种参数的位置
                     methodParamMapping.put(parameterTypes[i].getName(), i);
                 }
             }

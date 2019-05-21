@@ -14,6 +14,7 @@ public class ModifyService implements IModifyService {
 	/**
 	 * 增加
 	 */
+	@Override
 	public String add(String name,String addr) {
 		return "modifyService add,name=" + name + ",addr=" + addr;
 	}
@@ -21,6 +22,7 @@ public class ModifyService implements IModifyService {
 	/**
 	 * 修改
 	 */
+	@Override
 	public String edit(Integer id,String name) {
 		return "modifyService edit,id=" + id + ",name=" + name;
 	}
@@ -28,6 +30,7 @@ public class ModifyService implements IModifyService {
 	/**
 	 * 删除
 	 */
+	@Override
 	public String remove(Integer id) {
 		return "modifyService id=" + id;
 	}

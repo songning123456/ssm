@@ -25,22 +25,31 @@ public class HomeController {
     IModifyService modifyService;
 
 
-    @FLRequestMapping("/q")
+    @FLRequestMapping("/query")
     public FLModelAndView query(HttpServletRequest request, HttpServletResponse response,
-                                @FLRequestParam("name") String name){
+                                @FLRequestParam("name") String name) {
         String result = queryService.query(name);
-//		System.out.println(result);
-        Map mapBody = new HashMap();
-        mapBody.put("data","this is a data set from controller");
-        mapBody.put("token","beautifull token set here");
-        FLModelAndView mv = new FLModelAndView("first.html",mapBody);
+        Map mapBody = new HashMap(8);
+        mapBody.put("data", "this is a data set from controller");
+        mapBody.put("token", "beautifull token set here");
+        FLModelAndView mv = new FLModelAndView("first.html", mapBody);
         return mv;
 //        return out(response,result);
     }
 
+    @FLRequestMapping("/insert")
+    public FLModelAndView insert(HttpServletRequest request, HttpServletResponse response,
+                                 @FLRequestParam("name") String name) {
+        String result = queryService.query(name);
+        Map mapBody = new HashMap(16);
+        mapBody.put("data", "insert");
+        mapBody.put("token", "insert");
+        FLModelAndView mv = new FLModelAndView("first.html", mapBody);
+        return mv;
+    }
 
 
-    private String out(HttpServletResponse resp, String str){
+    private String out(HttpServletResponse resp, String str) {
         try {
             resp.getWriter().write(str);
         } catch (IOException e) {

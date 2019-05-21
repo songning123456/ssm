@@ -1,10 +1,13 @@
 package com.FL.springlean.framework.beans;
 
+/**
+ * @author
+ */
 public class FLBeanDefinition {
 
-    String beanClassName;
-    String factoryBeanName;
-    Object beanClass;
+    private String beanClassName;
+    private String factoryBeanName;
+    private Object beanClass;
 
     public FLBeanDefinition(String beanName, String factoryBeanName) {
         this.beanClassName = beanName;

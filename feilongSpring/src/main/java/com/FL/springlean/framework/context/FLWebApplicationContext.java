@@ -18,13 +18,14 @@ public class FLWebApplicationContext extends FLDefaultListableBeanFactory implem
     private String[] configLocations;
     private FLBeanDefinitionReader reader;
 
-    //用来保证注册式单例的容器
-    //key 为clasname
-    private Map<String, Object> beanCacheMap = new HashMap<String, Object>();
+    /**
+     * 用来保证注册式单例的容器s
+     * key 为classname
+     */
+    private Map<String, Object> beanCacheMap = new HashMap<>();
 
     public FLWebApplicationContext(String... configLocations) {
         this.configLocations = configLocations;
-
         refresh();
     }
 
@@ -35,14 +36,13 @@ public class FLWebApplicationContext extends FLDefaultListableBeanFactory implem
             reader = new FLBeanDefinitionReader(configLocations[0]);
         }
         //加载
-
         List<String> beanDefinitionClassNames = reader.getRegistedBeanDefinitionsClassName();
 
         //注册
         doRegister(beanDefinitionClassNames);
 
         //依赖注入
-        doAutowrited();
+        doAutowired();
 
     }
 
@@ -82,7 +82,7 @@ public class FLWebApplicationContext extends FLDefaultListableBeanFactory implem
         }
     }
 
-    private void doAutowrited() {
+    private void doAutowired() {
 
         for (Map.Entry<String, FLBeanDefinition> entry : this.beanDefinitionMap.entrySet()) {
             //getBean 是DI的开始
@@ -97,7 +97,7 @@ public class FLWebApplicationContext extends FLDefaultListableBeanFactory implem
         }
     }
 
-    //遍历Bean下所有属性, 进行注入
+    // 遍历Bean下所有属性, 进行注入
     private void populateBean(String strBeanName, FLBeanWrapper instance) {
         Object originalInstance = instance.get_originalBean();
         Class<?> clazz = originalInstance.getClass();
@@ -113,7 +113,7 @@ public class FLWebApplicationContext extends FLDefaultListableBeanFactory implem
             }
             FLAutowired autowired = fd.getAnnotation(FLAutowired.class);
             String strAutowireName = autowired.value().trim();
-            if (strAutowireName.equals("")) {
+            if ("".equals(strAutowireName)) {
                 strAutowireName = fd.getType().getName();
             }
             fd.setAccessible(true);
@@ -172,7 +172,7 @@ public class FLWebApplicationContext extends FLDefaultListableBeanFactory implem
     }
 
 
-    public Properties getConfig(){
+    public Properties getConfig() {
         return this.reader.getProperties();
     }
 }

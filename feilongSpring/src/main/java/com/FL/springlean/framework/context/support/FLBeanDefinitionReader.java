@@ -9,7 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-//对配置文件进行解析, 涉及到对Bean的定位,加载,注册,注入等.
+/**
+ * @author 对配置文件进行解析, 涉及到对Bean的定位,加载,注册,注入等.
+ */
 public class FLBeanDefinitionReader {
     private final String SCAN_Package = "";
     private Properties properties = new Properties();
@@ -18,8 +20,7 @@ public class FLBeanDefinitionReader {
         return properties;
     }
 
-    private List<String> registedBeanDefinitionsClassName = new ArrayList<>();
-
+    private List<String> registeredBeanDefinitionsClassName = new ArrayList<>();
 
 
     public FLBeanDefinitionReader(String... locations) {
@@ -35,7 +36,6 @@ public class FLBeanDefinitionReader {
         }
 
         //注册
-
         String strPackage = properties.get("scanPackage").toString();
 
         //记录下配置文件中Bean包下所有的类
@@ -43,7 +43,7 @@ public class FLBeanDefinitionReader {
 
     }
 
-    public static String lowerFristCase(String str) {
+    private static String lowerFirstCase(String str) {
         char[] chars = str.toCharArray();
         chars[0] += 32;
         return String.valueOf(chars);
@@ -51,15 +51,19 @@ public class FLBeanDefinitionReader {
 
     public FLBeanDefinition doRegister(String beanClassName) {
 
-        if (this.registedBeanDefinitionsClassName.contains(beanClassName)) {
-            FLBeanDefinition beanDefinition = new FLBeanDefinition(beanClassName, lowerFristCase(beanClassName.substring(beanClassName.lastIndexOf(".") + 1)));
+        if (this.registeredBeanDefinitionsClassName.contains(beanClassName)) {
+            FLBeanDefinition beanDefinition = new FLBeanDefinition(beanClassName, lowerFirstCase(beanClassName.substring(beanClassName.lastIndexOf(".") + 1)));
             return beanDefinition;
         }
         return null;
     }
 
-    //扫描指定包下所有的类
-    public void doScannerBeanClassnames(String packageName) {
+    /**
+     * 扫描指定包下所有的类
+     *
+     * @param packageName
+     */
+    private void doScannerBeanClassnames(String packageName) {
 
         URL url = this.getClass().getClassLoader().getResource("/" + packageName.replaceAll("\\.", "/"));
 
@@ -68,13 +72,13 @@ public class FLBeanDefinitionReader {
             if (fileT.isDirectory()) {
                 doScannerBeanClassnames(packageName + "." + fileT.getName());
             } else {
-                registedBeanDefinitionsClassName.add(packageName + "." + fileT.getName().replace(".class", ""));
+                registeredBeanDefinitionsClassName.add(packageName + "." + fileT.getName().replace(".class", ""));
             }
         }
     }
 
     public List<String> getRegistedBeanDefinitionsClassName() {
-        return registedBeanDefinitionsClassName;
+        return registeredBeanDefinitionsClassName;
     }
 
 }

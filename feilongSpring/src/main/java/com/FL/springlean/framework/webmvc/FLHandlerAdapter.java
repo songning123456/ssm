@@ -6,9 +6,14 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author
+ */
 public class FLHandlerAdapter {
     private FLHandlerMapping handlerMapping;
-    //记录本Method所有形式参数的位置,为了以后实例参数数组使用
+    /**
+     * 记录本Method所有形式参数的位置,为了以后实例参数数组使用
+     */
     private Map<String, Integer> methodParasMap = new HashMap<>();
 
     public FLHandlerAdapter(FLHandlerMapping handlerMapping, Map<String, Integer> methodParasMap) {
@@ -26,7 +31,7 @@ public class FLHandlerAdapter {
         }else if(clazz == Integer.class){
             return  Integer.valueOf(value);
         }else if(clazz == int.class){
-            return Integer.valueOf(value).intValue();
+            return Integer.valueOf(value);
         }else {
             return null;
         }
@@ -42,19 +47,18 @@ public class FLHandlerAdapter {
         Object[] realParas = new Object[methodParameterTypes.length];
 
         //2. 根据形参列表,获得实参列表
-
         for (Map.Entry<String, Integer> mapP : this.methodParasMap.entrySet()) {
             String paraName = mapP.getKey();
             if (requsetParametes.containsKey(paraName)) {
                 int index=mapP.getValue();
                 String requestValues=Arrays.toString(requsetParametes.get(paraName)).replace("\\[|\\]", "");
 
-                //对结果进行格式化
+                // 对结果进行格式化
                 realParas[mapP.getValue()] = caseStringValue(requestValues,methodParameterTypes[index]);
             }
         }
 
-        //传入request, response
+        // 传入request, response
         for (int i = 0; i < methodParameterTypes.length; i++) {
             if (methodParameterTypes[i] == HttpServletRequest.class) {
                 realParas[i] = request;
@@ -62,7 +66,6 @@ public class FLHandlerAdapter {
             }
             if (methodParameterTypes[i] == HttpServletResponse.class) {
                 realParas[i] = response;
-                continue;
             }
         }
 

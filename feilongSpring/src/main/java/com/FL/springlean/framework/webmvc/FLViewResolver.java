@@ -30,26 +30,25 @@ public class FLViewResolver {
         this.templateFile = templateFile;
     }
 
-    public String processViews(FLModelAndView mv) throws  Exception{
+    public String processViews(FLModelAndView mv) throws Exception {
 
-        RandomAccessFile randomAccessFile  = new RandomAccessFile(this.templateFile,"r");
+        RandomAccessFile randomAccessFile = new RandomAccessFile(this.templateFile, "r");
         StringBuilder sb = new StringBuilder();
-        String strLine ="";
-        while ((strLine=randomAccessFile.readLine())!=null){
-//            strLine = new String(strLine.getBytes("ISO-8859-1"), "utf-8");
+        String strLine = "";
+        while ((strLine = randomAccessFile.readLine()) != null) {
+            // strLine = new String(strLine.getBytes("ISO-8859-1"), "utf-8");
             Matcher m = matchLine(strLine);
-            while (m.find())
-            {
+            while (m.find()) {
                 for (int i = 0; i < m.groupCount(); i++) {
                     String paraName = m.group(i);
-                    paraName=paraName.replace("${","").replace("}","");
+                    paraName = paraName.replace("${", "").replace("}", "");
                     Object paraValue = mv.getDataModel().get(paraName);
-                    if(paraValue==null){
+                    if (paraValue == null) {
                         continue;
                     }
 
-                    strLine=strLine.replaceAll("\\$\\{"+paraName+"\\}",paraValue.toString());
-//                    strLine = new String(strLine.getBytes("utf-8"), "ISO-8859-1");
+                    strLine = strLine.replaceAll("\\$\\{" + paraName + "\\}", paraValue.toString());
+                    // strLine = new String(strLine.getBytes("utf-8"), "ISO-8859-1");
                 }
 
             }
@@ -59,9 +58,9 @@ public class FLViewResolver {
         return sb.toString();
 
     }
-    private Matcher matchLine(String strLine){
-//        Pattern pattern=Pattern.compile("$\\{(.*)\\}",Pattern.CASE_INSENSITIVE);
-        Pattern pattern = Pattern.compile("\\$\\{(.+?)\\}",Pattern.CASE_INSENSITIVE);
+
+    private Matcher matchLine(String strLine) {
+        Pattern pattern = Pattern.compile("\\$\\{(.+?)\\}", Pattern.CASE_INSENSITIVE);
         return pattern.matcher(strLine);
     }
 

@@ -1,27 +1,30 @@
 package com.FL.springlean.framework.beans;
 
+/**
+ * @author
+ */
 public class FLBeanWrapper {
-    private Object _originalBean;
-    private Object _wrapperedBean;
+    private Object originalBean;
+    private Object wrapperedBean;
 
     public FLBeanWrapper(Object originalBean) {
-        _originalBean = originalBean;
-        this._wrapperedBean = originalBean;
+        this.originalBean = originalBean;
+        this.wrapperedBean = originalBean;
     }
 
     public Object get_originalBean() {
-        return _originalBean;
+        return this.originalBean;
     }
 
-    public void set_originalBean(Object _originalBean) {
-        this._originalBean = _originalBean;
+    public void set_originalBean(Object originalBean) {
+        this.originalBean = originalBean;
     }
 
     public Object get_wrapperedBean() {
-        return _wrapperedBean;
+        return this.wrapperedBean;
     }
 
-    public void set_wrapperedBean(Object _wrapperedBean) {
-        this._wrapperedBean = _wrapperedBean;
+    public void set_wrapperedBean(Object wrapperedBean) {
+        this.wrapperedBean = wrapperedBean;
     }
 }
