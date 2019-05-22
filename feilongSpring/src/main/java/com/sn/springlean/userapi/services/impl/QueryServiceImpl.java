@@ -1,6 +1,6 @@
 package com.sn.springlean.userapi.services.impl;
 
-import com.sn.springlean.framework.annotation.FLService;
+import com.sn.springlean.framework.annotation.SnService;
 import com.sn.springlean.userapi.services.QueryService;
 
 
@@ -12,7 +12,7 @@ import java.util.Date;
  * @author Tom
  *
  */
-@FLService
+@SnService
 public class QueryServiceImpl implements QueryService {
 
 	/**

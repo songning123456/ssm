@@ -1,6 +1,6 @@
 package com.sn.springlean.userapi.services.impl;
 
-import com.sn.springlean.framework.annotation.FLService;
+import com.sn.springlean.framework.annotation.SnService;
 import com.sn.springlean.userapi.services.ModifyService;
 
 /**
@@ -8,7 +8,7 @@ import com.sn.springlean.userapi.services.ModifyService;
  * @author Tom
  *
  */
-@FLService
+@SnService
 public class ModifyServiceImpl implements ModifyService {
 
 	/**

@@ -1,8 +1,8 @@
 package com.sn.springlean.framework.webmvc.servlet;
 
-import com.sn.springlean.framework.annotation.FLController;
-import com.sn.springlean.framework.annotation.FLRequestMapping;
-import com.sn.springlean.framework.annotation.FLRequestParam;
+import com.sn.springlean.framework.annotation.SnController;
+import com.sn.springlean.framework.annotation.SnRequestMapping;
+import com.sn.springlean.framework.annotation.SnRequestParam;
 import com.sn.springlean.framework.beans.SnBeanWrapper;
 import com.sn.springlean.framework.context.SnWebApplicationContext;
 import com.sn.springlean.framework.webmvc.SnHandlerAdapter;
@@ -69,24 +69,24 @@ public class SnDispatcherServlet extends HttpServlet {
         for (String beanName : beanNames) {
             SnBeanWrapper beanWrapper = (SnBeanWrapper) context.getBean(beanName);
 
-            if (!beanWrapper.getOriginalBean().getClass().isAnnotationPresent(FLController.class)) {
+            if (!beanWrapper.getOriginalBean().getClass().isAnnotationPresent(SnController.class)) {
                 continue;
             }
             Class<?> clazz = beanWrapper.getOriginalBean().getClass();
             String strBaseUrl = "";
-            if (clazz.isAnnotationPresent(FLRequestMapping.class)) {
-                FLRequestMapping classRM = clazz.getAnnotation(FLRequestMapping.class);
+            if (clazz.isAnnotationPresent(SnRequestMapping.class)) {
+                SnRequestMapping classRM = clazz.getAnnotation(SnRequestMapping.class);
                 strBaseUrl = classRM.value().trim();
             }
 
             // Controller扫描之后,接着扫描其Method
             Method[] methods = clazz.getMethods();
             for (Method method : methods) {
-                if (!method.isAnnotationPresent(FLRequestMapping.class)) {
+                if (!method.isAnnotationPresent(SnRequestMapping.class)) {
                     continue;
                 }
 
-                FLRequestMapping methodRM = method.getAnnotation(FLRequestMapping.class);
+                SnRequestMapping methodRM = method.getAnnotation(SnRequestMapping.class);
                 String methodUrl = methodRM.value().trim();
                 String strTotalUrl = ("/" + strBaseUrl + methodUrl.replaceAll("\\*", ".*")).replaceAll("/+", "/");
                 this.handlerMappings.add(new SnHandlerMapping(beanWrapper.getOriginalBean(), method, Pattern.compile(strTotalUrl)));
@@ -107,8 +107,8 @@ public class SnDispatcherServlet extends HttpServlet {
             // 先处理命名参数
             for (int i = 0; i < paras.length; i++) {
                 for (Annotation a : paras[i]) {
-                    if (a instanceof FLRequestParam) {
-                        String paraName = ((FLRequestParam) a).value().trim();
+                    if (a instanceof SnRequestParam) {
+                        String paraName = ((SnRequestParam) a).value().trim();
                         methodParamMapping.put(paraName, i);
                         break;
                     }

@@ -1,8 +1,8 @@
 package com.sn.springlean.framework.context;
 
-import com.sn.springlean.framework.annotation.FLAutowired;
-import com.sn.springlean.framework.annotation.FLController;
-import com.sn.springlean.framework.annotation.FLService;
+import com.sn.springlean.framework.annotation.SnAutowired;
+import com.sn.springlean.framework.annotation.SnController;
+import com.sn.springlean.framework.annotation.SnService;
 import com.sn.springlean.framework.beans.SnBeanDefinition;
 import com.sn.springlean.framework.beans.SnBeanWrapper;
 import com.sn.springlean.framework.context.support.SnBeanDefinitionReader;
@@ -110,16 +110,16 @@ public class SnWebApplicationContext extends SnDefaultListableBeanFactory implem
         Object originalInstance = instance.getOriginalBean();
         Class<?> clazz = originalInstance.getClass();
 
-        if (!(clazz.isAnnotationPresent(FLController.class) || clazz.isAnnotationPresent(FLService.class))) {
+        if (!(clazz.isAnnotationPresent(SnController.class) || clazz.isAnnotationPresent(SnService.class))) {
             return;
         }
 
         Field[] fields = clazz.getDeclaredFields();
         for (Field fd : fields) {
-            if (!fd.isAnnotationPresent(FLAutowired.class)) {
+            if (!fd.isAnnotationPresent(SnAutowired.class)) {
                 continue;
             }
-            FLAutowired autowired = fd.getAnnotation(FLAutowired.class);
+            SnAutowired autowired = fd.getAnnotation(SnAutowired.class);
             String strAutowireName = autowired.value().trim();
             if ("".equals(strAutowireName)) {
                 strAutowireName = fd.getType().getName();

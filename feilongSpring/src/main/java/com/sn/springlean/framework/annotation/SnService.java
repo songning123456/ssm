@@ -2,9 +2,9 @@ package com.sn.springlean.framework.annotation;
 
 import java.lang.annotation.*;
 
-@Target({ElementType.FIELD})
+@Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface FLAutowired {
+public @interface SnService {
     String value() default "";
 }

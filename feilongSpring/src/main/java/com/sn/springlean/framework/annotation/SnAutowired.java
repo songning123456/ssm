@@ -2,9 +2,9 @@ package com.sn.springlean.framework.annotation;
 
 import java.lang.annotation.*;
 
-@Target({ElementType.PARAMETER})
+@Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface FLRequestParam {
+public @interface SnAutowired {
     String value() default "";
 }

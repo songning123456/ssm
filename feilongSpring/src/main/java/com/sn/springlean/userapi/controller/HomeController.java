@@ -1,9 +1,9 @@
 package com.sn.springlean.userapi.controller;
 
-import com.sn.springlean.framework.annotation.FLAutowired;
-import com.sn.springlean.framework.annotation.FLController;
-import com.sn.springlean.framework.annotation.FLRequestMapping;
-import com.sn.springlean.framework.annotation.FLRequestParam;
+import com.sn.springlean.framework.annotation.SnAutowired;
+import com.sn.springlean.framework.annotation.SnController;
+import com.sn.springlean.framework.annotation.SnRequestMapping;
+import com.sn.springlean.framework.annotation.SnRequestParam;
 import com.sn.springlean.framework.webmvc.SnModelAndView;
 import com.sn.springlean.userapi.services.ModifyService;
 import com.sn.springlean.userapi.services.QueryService;
@@ -14,20 +14,20 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-@FLController
-@FLRequestMapping("/web")
+@SnController
+@SnRequestMapping("/web")
 public class HomeController {
 
-    @FLAutowired
+    @SnAutowired
     QueryService queryService;
 
-    @FLAutowired
+    @SnAutowired
     ModifyService modifyService;
 
 
-    @FLRequestMapping("/query")
+    @SnRequestMapping("/query")
     public SnModelAndView query(HttpServletRequest request, HttpServletResponse response,
-                                @FLRequestParam("name") String name) {
+                                @SnRequestParam("name") String name) {
         String result = queryService.query(name);
         Map mapBody = new HashMap(8);
         mapBody.put("data", "this is a data set from controller");
@@ -37,9 +37,9 @@ public class HomeController {
 //        return out(response,result);
     }
 
-    @FLRequestMapping("/insert")
+    @SnRequestMapping("/insert")
     public SnModelAndView insert(HttpServletRequest request, HttpServletResponse response,
-                                 @FLRequestParam("name") String name) {
+                                 @SnRequestParam("name") String name) {
         String result = queryService.query(name);
         Map mapBody = new HashMap(16);
         mapBody.put("data", "insert");
