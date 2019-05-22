@@ -19,10 +19,7 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Pattern;
 
 public class FLDispatcherServlet extends HttpServlet {
@@ -40,9 +37,7 @@ public class FLDispatcherServlet extends HttpServlet {
 
         try {
             doDispatch(req, resp);
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
+        } catch (InstantiationException | IllegalAccessException e) {
             e.printStackTrace();
         }
     }
@@ -137,7 +132,7 @@ public class FLDispatcherServlet extends HttpServlet {
         String absolutePaths = this.getClass().getClassLoader().getResource(fileRootPath).getFile();
 
         File viewDirectory = new File(absolutePaths);
-        for (File file : viewDirectory.listFiles()) {
+        for (File file : Objects.requireNonNull(viewDirectory.listFiles())) {
             this.viewResolvers.add(new FLViewResolver(file.getName(), file));
         }
     }

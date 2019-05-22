@@ -7,10 +7,13 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Properties;
 
 /**
- * @author 对配置文件进行解析, 涉及到对Bean的定位,加载,注册,注入等.
+ * @author
+ * 用来读取xml文件及向ioc中注册bean
+ * 对配置文件进行解析, 涉及到对Bean的定位,加载,注册,注入等.
  */
 public class FLBeanDefinitionReader {
     private final String SCAN_Package = "";
@@ -67,8 +70,9 @@ public class FLBeanDefinitionReader {
 
         URL url = this.getClass().getClassLoader().getResource("/" + packageName.replaceAll("\\.", "/"));
 
+        assert url != null;
         File classDir = new File(url.getFile());
-        for (File fileT : classDir.listFiles()) {
+        for (File fileT : Objects.requireNonNull(classDir.listFiles())) {
             if (fileT.isDirectory()) {
                 doScannerBeanClassnames(packageName + "." + fileT.getName());
             } else {

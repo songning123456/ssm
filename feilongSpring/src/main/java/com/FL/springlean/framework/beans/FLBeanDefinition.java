@@ -2,6 +2,7 @@ package com.FL.springlean.framework.beans;
 
 /**
  * @author
+ * 保存XML中Bean被解析后的基本信息
  */
 public class FLBeanDefinition {
 

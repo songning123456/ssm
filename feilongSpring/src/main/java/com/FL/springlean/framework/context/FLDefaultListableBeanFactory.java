@@ -10,19 +10,20 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author
+ * 用来模拟DefaultListableBeanFactory, 这就是IOC容器
  */
 public class FLDefaultListableBeanFactory extends FLAbstractApplicationContext {
 
     /**
      * 用来存储BeanDefinition的定义
      */
-    protected Map<String,FLBeanDefinition> beanDefinitionMap= new ConcurrentHashMap<>();
+    Map<String, FLBeanDefinition> beanDefinitionMap = new ConcurrentHashMap<>();
     /**
      * 用来存储实例化的单例Bean对象
      */
-    protected Map<String,FLBeanWrapper>  singleBeanInstanceMap= new ConcurrentHashMap<>();
+    Map<String, FLBeanWrapper> singleBeanInstanceMap = new ConcurrentHashMap<>();
 
-    protected List<String> beanDefinitionNames = new ArrayList<>();
+    List<String> beanDefinitionNames = new ArrayList<>();
 
     @Override
     protected void refreshBeanFactory() {

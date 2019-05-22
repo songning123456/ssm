@@ -2,6 +2,7 @@ package com.FL.springlean.framework.beans;
 
 /**
  * @author
+ * 包装实例化的Bean,以及被代理的bean
  */
 public class FLBeanWrapper {
     private Object originalBean;

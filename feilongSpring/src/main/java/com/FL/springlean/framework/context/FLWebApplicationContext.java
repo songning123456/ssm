@@ -14,6 +14,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+/**
+ * @author 模拟XmlWebApplicationContext, 用来存储web程序的上下文
+ */
 public class FLWebApplicationContext extends FLDefaultListableBeanFactory implements FLBeanFactory {
     private String[] configLocations;
     private FLBeanDefinitionReader reader;
@@ -43,7 +46,6 @@ public class FLWebApplicationContext extends FLDefaultListableBeanFactory implem
 
         //依赖注入
         doAutowired();
-
     }
 
 
@@ -54,14 +56,14 @@ public class FLWebApplicationContext extends FLDefaultListableBeanFactory implem
     private void doRegister(List<String> beanDefinitions) {
         try {
 
-            for (String BeanClassName : beanDefinitions) {
+            for (String beanclassname : beanDefinitions) {
 
-                Class<?> clazz = Class.forName(BeanClassName);
+                Class<?> clazz = Class.forName(beanclassname);
                 if (clazz.isInterface()) {
                     continue;
                 }
 
-                FLBeanDefinition beanDefinition = reader.doRegister(BeanClassName);
+                FLBeanDefinition beanDefinition = reader.doRegister(beanclassname);
                 if (beanDefinition == null) {
                     continue;
                 }
@@ -97,7 +99,12 @@ public class FLWebApplicationContext extends FLDefaultListableBeanFactory implem
         }
     }
 
-    // 遍历Bean下所有属性, 进行注入
+    /**
+     * 遍历Bean下所有属性, 进行注入
+     *
+     * @param strBeanName
+     * @param instance
+     */
     private void populateBean(String strBeanName, FLBeanWrapper instance) {
         Object originalInstance = instance.get_originalBean();
         Class<?> clazz = originalInstance.getClass();
@@ -134,11 +141,12 @@ public class FLWebApplicationContext extends FLDefaultListableBeanFactory implem
 
         if (this.singleBeanInstanceMap.containsKey(beanName)) {
             return this.singleBeanInstanceMap.get(beanName);
-//            return this.singleBeanInstanceMap.get(beanName).get_wrapperedBean();
         }
 
         FLBeanDefinition beanDefinition = this.beanDefinitionMap.get(beanName);
-        if (beanDefinition == null) return null;
+        if (beanDefinition == null) {
+            return null;
+        }
 
         Object beanInstance = initBean(beanDefinition);
 
@@ -151,7 +159,7 @@ public class FLWebApplicationContext extends FLDefaultListableBeanFactory implem
     }
 
     private Object initBean(FLBeanDefinition beanDefinition) {
-        Object instance = null;
+        Object instance;
         String beanClassName = beanDefinition.getBeanClassName();
         try {
 

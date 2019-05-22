@@ -39,7 +39,6 @@ public class FLHandlerAdapter {
 
     public FLModelAndView handler(HttpServletRequest request, HttpServletResponse response) throws IllegalAccessException, InstantiationException {
         //1. 从Request中获取所有参数
-
         Class<?>[] methodParameterTypes = handlerMapping.getMethod().getParameterTypes();
 
         Map<String, String[]> requsetParametes = request.getParameterMap();

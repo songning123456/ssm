@@ -11,7 +11,7 @@ public class FLModelAndView {
         this.viewName = viewName;
     }
 
-    public Map<String, ?> getDataModel() {
+    Map<String, ?> getDataModel() {
         return dataModel;
     }
 
