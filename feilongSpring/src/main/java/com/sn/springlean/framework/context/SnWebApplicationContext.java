@@ -71,7 +71,6 @@ public class SnWebApplicationContext extends SnDefaultListableBeanFactory implem
                 this.beanDefinitionMap.put(beanDefinition.getFactoryBeanName(), beanDefinition);
                 this.beanDefinitionNames.add(beanDefinition.getFactoryBeanName());
 
-
                 for (Class<?> i : clazz.getInterfaces()) {
                     this.beanDefinitionMap.put(i.getName(), beanDefinition);
                     this.beanDefinitionNames.add(i.getName());

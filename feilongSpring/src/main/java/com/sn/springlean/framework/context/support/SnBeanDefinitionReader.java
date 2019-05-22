@@ -37,10 +37,10 @@ public class SnBeanDefinitionReader {
             e.printStackTrace();
         }
 
-        //注册
+        //注册 (获取要扫描的路径 strPackage = com.sn.springlean.userapi)
         String strPackage = properties.get("scanPackage").toString();
 
-        //记录下配置文件中Bean包下所有的类
+        // List<String> registeredBeanDefinitionsClassName 记录下配置文件中Bean包下所有的类(全路径名称)
         doScannerBeanClassNames(strPackage);
 
     }

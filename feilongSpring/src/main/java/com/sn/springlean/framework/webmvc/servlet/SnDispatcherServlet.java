@@ -28,7 +28,7 @@ import java.util.regex.Pattern;
 public class SnDispatcherServlet extends HttpServlet {
 
     private final String LOCATION = "contextConfigLocation";
-    SnWebApplicationContext applicationContext = null;
+    private SnWebApplicationContext applicationContext = null;
 
     private List<SnHandlerMapping> handlerMappings = new ArrayList<>();
     private Map<SnHandlerMapping, SnHandlerAdapter> handlerAdapterMap = new HashMap<>();
@@ -48,10 +48,12 @@ public class SnDispatcherServlet extends HttpServlet {
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
 
+        // 在web.xml中根据<param-name>获取<param-value>
         String strLocation = config.getInitParameter(LOCATION);
+        // 获取路径,初始化容器上下文
         applicationContext = new SnWebApplicationContext(strLocation);
-        initStrategies(applicationContext);
 
+        initStrategies(applicationContext);
     }
 
     private void initStrategies(SnWebApplicationContext context) {

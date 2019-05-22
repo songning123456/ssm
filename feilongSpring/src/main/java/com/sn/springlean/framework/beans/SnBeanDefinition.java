@@ -9,7 +9,13 @@ import lombok.Data;
 @Data
 public class SnBeanDefinition {
 
+    /**
+     * 全路径类名
+     */
     private String beanClassName;
+    /**
+     * 首字母小写的被扫描的(简写)类
+     */
     private String factoryBeanName;
     private Object beanClass;
 
