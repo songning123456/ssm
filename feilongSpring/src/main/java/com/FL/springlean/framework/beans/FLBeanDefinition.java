@@ -1,9 +1,11 @@
 package com.FL.springlean.framework.beans;
 
+import lombok.Data;
+
 /**
- * @author
- * 保存XML中Bean被解析后的基本信息
+ * @author 保存XML中Bean被解析后的基本信息
  */
+@Data
 public class FLBeanDefinition {
 
     private String beanClassName;
@@ -21,25 +23,4 @@ public class FLBeanDefinition {
             e.printStackTrace();
         }
     }
-
-    public String getBeanClassName() {
-        return beanClassName;
-    }
-
-    public void setBeanClassName(String beanClassName) {
-        this.beanClassName = beanClassName;
-    }
-
-    public String getFactoryBeanName() {
-        return factoryBeanName;
-    }
-
-    public void setFactoryBeanName(String factoryBeanName) {
-        this.factoryBeanName = factoryBeanName;
-    }
-
-    public Object getBeanClass() {
-        return beanClass;
-    }
-
 }

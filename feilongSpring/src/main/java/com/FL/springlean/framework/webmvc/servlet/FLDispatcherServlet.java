@@ -66,10 +66,10 @@ public class FLDispatcherServlet extends HttpServlet {
         for (String beanName : beanNames) {
             FLBeanWrapper beanWrapper = (FLBeanWrapper) context.getBean(beanName);
 
-            if (!beanWrapper.get_originalBean().getClass().isAnnotationPresent(FLController.class)) {
+            if (!beanWrapper.getOriginalBean().getClass().isAnnotationPresent(FLController.class)) {
                 continue;
             }
-            Class<?> clazz = beanWrapper.get_originalBean().getClass();
+            Class<?> clazz = beanWrapper.getOriginalBean().getClass();
             String strBaseUrl = "";
             if (clazz.isAnnotationPresent(FLRequestMapping.class)) {
                 FLRequestMapping classRM = clazz.getAnnotation(FLRequestMapping.class);
@@ -86,7 +86,7 @@ public class FLDispatcherServlet extends HttpServlet {
                 FLRequestMapping methodRM = method.getAnnotation(FLRequestMapping.class);
                 String methodUrl = methodRM.value().trim();
                 String strTotalUrl = ("/" + strBaseUrl + methodUrl.replaceAll("\\*", ".*")).replaceAll("/+", "/");
-                this.handlerMappings.add(new FLHandlerMapping(beanWrapper.get_originalBean(), method, Pattern.compile(strTotalUrl)));
+                this.handlerMappings.add(new FLHandlerMapping(beanWrapper.getOriginalBean(), method, Pattern.compile(strTotalUrl)));
                 System.out.println("Mapping: " + strTotalUrl + " , " + method);
             }
 
@@ -129,7 +129,7 @@ public class FLDispatcherServlet extends HttpServlet {
 
     private void initViewResolvers(FLWebApplicationContext context) {
         String fileRootPath = context.getConfig().getProperty("templateRoot");
-        String absolutePaths = this.getClass().getClassLoader().getResource(fileRootPath).getFile();
+        String absolutePaths = Objects.requireNonNull(this.getClass().getClassLoader().getResource(fileRootPath)).getFile();
 
         File viewDirectory = new File(absolutePaths);
         for (File file : Objects.requireNonNull(viewDirectory.listFiles())) {
@@ -140,7 +140,7 @@ public class FLDispatcherServlet extends HttpServlet {
 
     private void doDispatch(HttpServletRequest request, HttpServletResponse response) throws InstantiationException, IllegalAccessException {
         FLHandlerMapping handlerMapping = getHandler(request, response);
-        if(handlerMapping==null){
+        if (handlerMapping == null) {
             try {
                 response.getWriter().write("404 not found");
             } catch (IOException e) {

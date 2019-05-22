@@ -11,8 +11,7 @@ import java.util.Objects;
 import java.util.Properties;
 
 /**
- * @author
- * 用来读取xml文件及向ioc中注册bean
+ * @author 用来读取xml文件及向ioc中注册bean
  * 对配置文件进行解析, 涉及到对Bean的定位,加载,注册,注入等.
  */
 public class FLBeanDefinitionReader {

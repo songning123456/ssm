@@ -1,26 +1,14 @@
 package com.FL.springlean.framework.webmvc;
 
+import lombok.Data;
+
 import java.util.Map;
 
+@Data
 public class FLModelAndView {
-    public String getViewName() {
-        return viewName;
-    }
-
-    public void setViewName(String viewName) {
-        this.viewName = viewName;
-    }
-
-    Map<String, ?> getDataModel() {
-        return dataModel;
-    }
-
-    public void setDataModel(Map<String, ?> dataModel) {
-        this.dataModel = dataModel;
-    }
 
     private String viewName;
-    private Map<String,?> dataModel;
+    private Map<String, ?> dataModel;
 
     public FLModelAndView(String viewName, Map<String, ?> dataModel) {
         this.viewName = viewName;

@@ -1,5 +1,7 @@
 package com.FL.springlean.framework.webmvc;
 
+import lombok.Data;
+
 import java.io.File;
 import java.io.RandomAccessFile;
 import java.util.regex.Matcher;
@@ -8,22 +10,8 @@ import java.util.regex.Pattern;
 /**
  * @author
  */
+@Data
 public class FLViewResolver {
-    public String getViewName() {
-        return viewName;
-    }
-
-    public void setViewName(String viewName) {
-        this.viewName = viewName;
-    }
-
-    public File getTemplateFile() {
-        return templateFile;
-    }
-
-    public void setTemplateFile(File templateFile) {
-        this.templateFile = templateFile;
-    }
 
     private String viewName;
     private File templateFile;

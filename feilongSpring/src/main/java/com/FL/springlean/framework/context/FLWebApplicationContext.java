@@ -18,6 +18,7 @@ import java.util.Properties;
  * @author 模拟XmlWebApplicationContext, 用来存储web程序的上下文
  */
 public class FLWebApplicationContext extends FLDefaultListableBeanFactory implements FLBeanFactory {
+
     private String[] configLocations;
     private FLBeanDefinitionReader reader;
 
@@ -87,12 +88,11 @@ public class FLWebApplicationContext extends FLDefaultListableBeanFactory implem
     private void doAutowired() {
 
         for (Map.Entry<String, FLBeanDefinition> entry : this.beanDefinitionMap.entrySet()) {
-            //getBean 是DI的开始
+            // getBean 是DI的开始
             getBean(entry.getKey());
         }
 
         //对属性进行注入
-
         for (Map.Entry<String, FLBeanWrapper> entry : this.singleBeanInstanceMap.entrySet()) {
             //getBean 是DI的开始
             populateBean(entry.getKey(), entry.getValue());
@@ -106,7 +106,7 @@ public class FLWebApplicationContext extends FLDefaultListableBeanFactory implem
      * @param instance
      */
     private void populateBean(String strBeanName, FLBeanWrapper instance) {
-        Object originalInstance = instance.get_originalBean();
+        Object originalInstance = instance.getOriginalBean();
         Class<?> clazz = originalInstance.getClass();
 
         if (!(clazz.isAnnotationPresent(FLController.class) || clazz.isAnnotationPresent(FLService.class))) {
@@ -126,7 +126,7 @@ public class FLWebApplicationContext extends FLDefaultListableBeanFactory implem
             fd.setAccessible(true);
 
             try {
-                fd.set(originalInstance, this.singleBeanInstanceMap.get(strAutowireName).get_wrapperedBean());
+                fd.set(originalInstance, this.singleBeanInstanceMap.get(strAutowireName).getWrappedBean());
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }

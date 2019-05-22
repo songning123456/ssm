@@ -1,11 +1,14 @@
 package com.FL.springlean.framework.webmvc;
 
+import lombok.Data;
+
 import java.lang.reflect.Method;
 import java.util.regex.Pattern;
 
 /**
  * @author
  */
+@Data
 public class FLHandlerMapping {
     private Object controller;
     private Method method;
@@ -14,30 +17,6 @@ public class FLHandlerMapping {
     public FLHandlerMapping(Object controller, Method method, Pattern urlPattern) {
         this.controller = controller;
         this.method = method;
-        this.urlPattern = urlPattern;
-    }
-
-    public Object getController() {
-        return controller;
-    }
-
-    public void setController(Object controller) {
-        this.controller = controller;
-    }
-
-    public Method getMethod() {
-        return method;
-    }
-
-    public void setMethod(Method method) {
-        this.method = method;
-    }
-
-    public Pattern getUrlPattern() {
-        return urlPattern;
-    }
-
-    public void setUrlPattern(Pattern urlPattern) {
         this.urlPattern = urlPattern;
     }
 }
