@@ -12,7 +12,7 @@
 
   <servlet>
     <servlet-name>feilongmvc</servlet-name>
-    <servlet-class>com.FL.springlean.framework.webmvc.servlet.FLDispatcherServlet</servlet-class>
+    <servlet-class>com.sn.springlean.framework.webmvc.servlet.SnDispatcherServlet</servlet-class>
     <init-param>
       <param-name>contextConfigLocation</param-name>
       <param-value>classpath:application.properties</param-value>
