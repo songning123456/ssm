@@ -57,7 +57,6 @@ public class SnWebApplicationContext extends SnDefaultListableBeanFactory implem
 
     private void doRegister(List<String> beanDefinitions) {
         try {
-
             for (String beanclassname : beanDefinitions) {
 
                 Class<?> clazz = Class.forName(beanclassname);
@@ -77,8 +76,6 @@ public class SnWebApplicationContext extends SnDefaultListableBeanFactory implem
                     this.beanDefinitionMap.put(i.getName(), beanDefinition);
                     this.beanDefinitionNames.add(i.getName());
                 }
-
-
             }
 
         } catch (Exception e) {
@@ -131,10 +128,7 @@ public class SnWebApplicationContext extends SnDefaultListableBeanFactory implem
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
-
         }
-
-
     }
 
     @Override
@@ -156,7 +150,6 @@ public class SnWebApplicationContext extends SnDefaultListableBeanFactory implem
         this.singleBeanInstanceMap.put(beanName, beanWrapper);
 
         return beanWrapper;
-
     }
 
     private Object initBean(SnBeanDefinition beanDefinition) {
@@ -168,7 +161,6 @@ public class SnWebApplicationContext extends SnDefaultListableBeanFactory implem
                 return beanCacheMap.get(beanClassName);
             }
 
-
             Class<?> clazz = (Class<?>) beanDefinition.getBeanClass();
             instance = clazz.newInstance();
             this.beanCacheMap.put(beanClassName, instance);
@@ -177,7 +169,6 @@ public class SnWebApplicationContext extends SnDefaultListableBeanFactory implem
             e.printStackTrace();
             return null;
         }
-
     }
 
 

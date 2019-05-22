@@ -37,7 +37,6 @@ public class SnDispatcherServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         try {
             doDispatch(req, resp);
         } catch (InstantiationException | IllegalAccessException e) {
@@ -92,8 +91,6 @@ public class SnDispatcherServlet extends HttpServlet {
                 this.handlerMappings.add(new SnHandlerMapping(beanWrapper.getOriginalBean(), method, Pattern.compile(strTotalUrl)));
                 System.out.println("Mapping: " + strTotalUrl + " , " + method);
             }
-
-
         }
     }
 
@@ -124,7 +121,6 @@ public class SnDispatcherServlet extends HttpServlet {
                 }
             }
 
-
             this.handlerAdapterMap.put(handlerMapping, new SnHandlerAdapter(handlerMapping, methodParamMapping));
             System.out.println("initHandlerAdapters: " + methodParamMapping + " , " + method);
         }
@@ -139,7 +135,6 @@ public class SnDispatcherServlet extends HttpServlet {
             this.viewResolvers.add(new SnViewResolver(file.getName(), file));
         }
     }
-
 
     private void doDispatch(HttpServletRequest request, HttpServletResponse response) throws InstantiationException, IllegalAccessException {
         SnHandlerMapping handlerMapping = getHandler(request, response);
@@ -157,7 +152,6 @@ public class SnDispatcherServlet extends HttpServlet {
     }
 
     private void processDispatcherResult(HttpServletRequest request, HttpServletResponse response, SnModelAndView viewAndModel) {
-
         try {
             if (viewAndModel == null) {
                 response.getWriter().write("404 not found, please try again");
